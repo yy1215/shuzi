@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+.fs(@px:12px){
+  font-size: @px;
+}
+.w(@px){
+  width: @px;
+}
+.h(@px){
+  height: @px;
+}
+.color(@c:#03a7ff){
+  color:@c ;
+}
+.bg(@bg){
+  background: @bg;
+}
+.fl(@float){
+  float: @float;
+}
+.mt(@px){
+  margin-top: @px;
+}
+.mr(@px){
+  margin-right: @px;
+}
+.mb(@px){ 
+  margin-bottom: @px;
+}
+.ml(@px){
+  margin-left: @px;
+}
+.margin(@top,@right,@bottom,@left) {
+  .mt(@top);
+  .mr(@right);
+  .mb(@bottom);
+  .ml(@left);
+}
+.pt(@px){
+  padding-top: @px;
+}
+.pr(@px) {
+  padding-right: @px;
+}
+.pb(@px){
+  padding-bottom:@px;
+}
+.pl(@px){
+  padding-left: @px;
+}
+.padding(@top,@right,@bottom,@left) {
+  .pt(@top);
+  .pr(@right);
+  .pb(@bottom);
+  .pl(@left);
+}
+.bg(@c){
+  background: @c;
+}
+.radius(@px:3px){
+  -webkit-border-radius: @px;
+  -moz-border-radius:@px ;
+  border-radius:@px ;
+}
+
+
+
