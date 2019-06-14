@@ -81,7 +81,7 @@ import { requestLogin } from '../api/api';
   }
 </script>
 
-<style scoped >
+<style lang="less" scoped >
   .login-wrap{
     background-clip: padding-box;
     margin: 180px auto;

@@ -25,7 +25,7 @@
             </el-col>
             <el-col  style="width:20%">
                 <el-form-item>
-                    <el-button type="primary" @click="search(formInline)">查询</el-button>
+                    <el-button type="primary" @click="doFilter(formInline)">查询</el-button>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="reset(formInline)">重置</el-button>
@@ -52,7 +52,7 @@
             </el-table-column>
             <el-table-column
             prop="loginName"
-            label="用户名"
+            label="工号"
             >
             </el-table-column>
             <el-table-column
@@ -124,9 +124,10 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer" style="text-align:center;">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                <el-button size="medium" @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" size="medium" @click="dialogVisible = false">确 定</el-button>
             </span>
+            
         </el-dialog>
     </div>
 
@@ -189,16 +190,39 @@ export default {
              * 第一种方法
              */
             console.log(keywords);
-             var newList =[];
+           /*   var newList =[];
             this.tableData.forEach(item => {
                 if(item.name.indexOf(keywords) != -1){
                     console.log(item);
                     newList.push(item)
                 }
             })
-            return newList;
-
+            return newList; */
+            
          
+        },
+
+        doFilter(keywords) {
+           this.$refs.formInline.validate((valid) => {
+                if (valid) {
+                    console.log(valid);
+                    //alert('submit!');
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+         
+          /*   this.tableDataEnd = []
+            //每次手动将数据置空,因为会出现多次点击搜索情况
+            this.filterTableDataEnd=[]
+            this.tableDataBegin.forEach((value, index) => {
+                if(value.name){
+                    if(value.name.indexOf(this.tableDataName)>=0){
+                    this.filterTableDataEnd.push(value)
+                    }
+                }
+            }); */
         },
         /* 重置  */
         reset(){
@@ -252,4 +276,10 @@ export default {
     .el-dialog__footer{
         text-align: center !important;
     }
+    .editFrom{
+        .el-form{
+            overflow: hidden;
+        }
+    }
+   
 </style>
