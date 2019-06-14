@@ -6,11 +6,10 @@ import home from '@/components/home'
 import userManagement from '@/components/systemManagement/userManagement'
 import roleManagement from '@/components/systemManagement/roleManagement'
 import addUser from '@/components/systemManagement/addUser'
+import infoList from '@/components/contentInfo/infoList'
 
 Vue.use(VueRouter)
-
   let routes =  [
-
     {
       path: '/login',
       name: '系统登录',
@@ -29,21 +28,35 @@ Vue.use(VueRouter)
       name: '系统管理',
       iconCls: 'fa fa-bar-chart',
       children:[
-       {
-        path: '/userManagement',
-        name: '用户管理',
-        component: userManagement
-       },
-       {
-        path: '/roleManagement',
-        name: '角色管理',
-        component: roleManagement
-       },
-       {
-        path: '/addUser',
-        name: '新增用户',
-        component: addUser
-       }
+        {
+          path: '/userManagement',
+          name: '用户管理',
+          component: userManagement
+        },
+        {
+          path: '/roleManagement',
+          name: '角色管理',
+          component: roleManagement
+        },
+        {
+          path: '/addUser',
+          name: '新增用户',
+          component: addUser
+        }
+      ]
+    },
+    {
+      path: '/',
+      component: home,
+      name: '内容管理',
+      iconCls: 'fa fa-bar-chart',
+      //leaf: true,//只有一个节点
+      children:[
+        {
+         path: '/infoList',
+         name: '公告信息',
+         component: infoList
+        }
       ]
     }
   ]

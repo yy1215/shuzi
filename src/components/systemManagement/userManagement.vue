@@ -137,7 +137,7 @@ export default {
      data() {
       return {
         dialogVisible: false,
-        formLabelWidth: '100px',
+        formLabelWidth: '150px',
         formInline: {
             searcOrder:'',
             searchName: '',

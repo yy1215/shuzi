@@ -76,7 +76,6 @@ export default {
             userRole: [
                 { required: true, message: '请选择用户角色', trigger: 'change' }
             ]
-        
         }
       };
     },
