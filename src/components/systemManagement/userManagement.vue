@@ -46,17 +46,18 @@
             width="55">
             </el-table-column>
             <el-table-column
-            label="日期"
+             prop="createTime"
+            label="创建日期"
             >
-            <template slot-scope="scope">{{ scope.row.date }}</template>
+            <!-- <template slot-scope="scope">{{ scope.row.createTime }}</template> -->
             </el-table-column>
             <el-table-column
-            prop="loginName"
+            prop="username"
             label="工号"
             >
             </el-table-column>
             <el-table-column
-            prop="userName"
+            prop="name"
             label="中文姓名"
             >
             </el-table-column>
@@ -93,6 +94,17 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="block">
+           <el-pagination 
+            @size-change="handleSizeChange" 
+            @current-change="handleCurrentChange"
+            :page-size="pageSize"
+            :current-page="currentPage" 
+            :page-sizes="[2, 4,6]" 
+            layout="prev, pager, next"
+            :total="total">
+            </el-pagination>
+        </div>
 
         <!-- 编辑 -->
         <el-dialog class="editFrom" title="编辑" :visible.sync="dialogVisible"  width="50%">
@@ -134,8 +146,12 @@
 </template>
 <script>
 export default {
-     data() {
+    data() {
       return {
+        total:0,
+        /*分页*/
+        currentPage:1,
+        pageSize:2,
         dialogVisible: false,
         formLabelWidth: '150px',
         formInline: {
@@ -147,24 +163,14 @@ export default {
         tableData: [
             {
                 id:'1',
-                loginName:'admin',
-                userName: '0王小虎',
-                affiliation:'研发部',
+                username:'admin',
+                name: '0王小虎',
                 userRole:'管理员',
                 phone:'13800138000',
-                date: '2016-05-03',
-                status:true
-            },
-            {
-                id:'2',
-                loginName:'ry',
-                userName: '若仪',
-                affiliation:'测试部',
-                userRole:'测试1',
-                phone:'13800138000',
-                date: '2017-05-03',
-                status:false
-            },
+                createTime: '2016-05-03'
+                //status:true
+            }
+           
         ],
         multipleSelection: [],
         editForm: {
@@ -183,7 +189,20 @@ export default {
       }
     },
     methods: {
-      
+       getPageList(){
+            let page = {
+                pageSize:this.pageSize,
+                pageNum:this.currentPage
+            }
+
+            this.axios.get('/api/cashflow/user/getListPage',{params:page}).then((res)=>{
+                this.tableData = res.data.data.records;
+                this.total = res.data.data.total;
+            }).catch((err)=>{
+                console.log(err);
+            })
+       },
+
         /* 查询 */
          search(keywords){ //根据关键字，进行数据搜索
             /**
@@ -201,7 +220,6 @@ export default {
             
          
         },
-
         doFilter(keywords) {
            this.$refs.formInline.validate((valid) => {
                 if (valid) {
@@ -256,9 +274,33 @@ export default {
             this.editForm = Object.assign({}, row);
         },
         handleDelete(index, row) {
-            this.tableData.splice(index,1)
-            console.log(index, row);
+            //  this.tableData.splice(index,1)
+            console.log(row.id);
+            let params ={id:row.id}
+            this.axios.get('/api/cashflow/user/deleteUser',{params:params}).then((res)=>{
+                //this.tableData = res.data.data;
+                this.getPageList();
+            }).catch((err)=>{
+                console.log(err);
+            })
+           
+        },
+        /*控制分页*/
+        handleSizeChange(val) {
+            this.pageSize = val;
+            this.getPageList();
+        },
+
+        handleCurrentChange(val) {
+            this.currentPage=val,
+            this.getPageList();
         }
+    },
+    mounted () {
+        this.getPageList();
+    },
+    components: {
+
     }
 }
 </script>

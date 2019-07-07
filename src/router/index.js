@@ -41,7 +41,8 @@ Vue.use(VueRouter)
         {
           path: '/addUser',
           name: '新增用户',
-          component: addUser
+          component: addUser,
+           
         }
       ]
     },

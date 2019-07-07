@@ -1,37 +1,35 @@
 <template>
     <div>
-    
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-            <el-form-item label="工号" prop="searcOrder">
-                <el-input v-model="ruleForm.searcOrder"></el-input>
+            <el-form-item label="工号">
+                <el-input v-model="ruleForm.username"></el-input>
             </el-form-item>
             <el-form-item label="中文姓名" prop="name">
                 <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="手机号" prop="phone">
+            <el-form-item label="手机号">
                 <el-input v-model="ruleForm.phone"></el-input>
             </el-form-item>
-            <el-form-item label="所属部门" prop="affiliation">
+            <el-form-item label="所属部门">
                 <el-select v-model="ruleForm.affiliation" placeholder="请选择">
                     <el-option label="所有" value="all"></el-option>
                     <el-option label="比地" value="bidi"></el-option>
                     <el-option label="曦达" value="xida"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="用户状态" prop="status">
+            <el-form-item label="用户状态">
                 <el-select v-model="ruleForm.status" placeholder="请选择">
                     <el-option label="正常" value="normal"></el-option>
                     <el-option label="停用" value="disable"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="用户角色" prop="userRole">
+            <el-form-item label="用户角色">
                 <el-select v-model="ruleForm.userRole" placeholder="请选择">
                     <el-option label="管理员" value="guanli"></el-option>
                     <el-option label="测试" value="ceshi"></el-option>
                     <el-option label="技术" value="jishu"></el-option>
                 </el-select>
             </el-form-item>
-         
             <el-form-item>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -46,7 +44,7 @@ export default {
    data() {
       return {
         ruleForm: {
-          searcOrder:'',
+          username:'',
           name: '',
           phone:'',
           affiliation:'',
@@ -80,25 +78,34 @@ export default {
       };
     },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+        submitForm() {
+            var params = new URLSearchParams();
+            var obj = this.ruleForm;
+            for(var o in obj){
+                console.log(o + "---" + obj[o]);
+                 params.append(o,obj[o]);
+            }
+            //params.append('name', this.ruleForm.name);
+
+            console.log(this.ruleForm.name);
+            this.axios.post('/api/cashflow/user/addUser',
+                params
+            ).then((res)=>{
+                console.log(res.data)
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        }
     }
 }
 </script>
 <style  lang="less" scoped>
     .el-form{
         overflow: hidden;
+        width: 100%;
     }
     .el-form-item{
         width: 40%;
