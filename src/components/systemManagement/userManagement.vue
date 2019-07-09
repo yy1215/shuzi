@@ -170,7 +170,6 @@ export default {
                 createTime: '2016-05-03'
                 //status:true
             }
-           
         ],
         multipleSelection: [],
         editForm: {
@@ -230,17 +229,6 @@ export default {
                     return false;
                 }
             });
-         
-          /*   this.tableDataEnd = []
-            //每次手动将数据置空,因为会出现多次点击搜索情况
-            this.filterTableDataEnd=[]
-            this.tableDataBegin.forEach((value, index) => {
-                if(value.name){
-                    if(value.name.indexOf(this.tableDataName)>=0){
-                    this.filterTableDataEnd.push(value)
-                    }
-                }
-            }); */
         },
         /* 重置  */
         reset(){

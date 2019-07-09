@@ -53,48 +53,42 @@ export default {
           resource: ''
         },
         rules: {
-            searcOrder: [
-                { required: true, message: '请输入工号', trigger: 'blur' },
-                { min:8, max: 9, message: '8~9位的数字', trigger: 'blur' }
-            ],
             name: [
-                { required: true, message: '请输入活动名称', trigger: 'blur' },
+                { required: true, message: '请输入姓名', trigger: 'blur' },
                 { min: 1, max: 20, message: '长度在 1 到 20个字符', trigger: 'blur' }
             ],
             phone: [
                 { required: true, message: '请输入手机号', trigger: 'blur' },
                 { min: 11, max: 11, message: '请输入11位数字的手机号', trigger: 'blur' }
-            ],
-            affiliation: [
-                { required: true, message: '请选择所属性部门', trigger: 'change' }
-            ],
-            status: [
-                { required: true, message: '请选择用户状态', trigger: 'change' }
-            ],
-            userRole: [
-                { required: true, message: '请选择用户角色', trigger: 'change' }
             ]
         }
       };
     },
     methods: {
-        submitForm() {
-            var params = new URLSearchParams();
-            var obj = this.ruleForm;
-            for(var o in obj){
-                console.log(o + "---" + obj[o]);
-                 params.append(o,obj[o]);
-            }
-            //params.append('name', this.ruleForm.name);
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    var params = new URLSearchParams();
+                    var obj = this.ruleForm;
+                    for(var o in obj){
+                        console.log(o + "---" + obj[o]);
+                        params.append(o,obj[o]);
+                    }
+                    console.log(this.ruleForm.name);
+                    this.axios.post('/api/cashflow/user/addUser',
+                        params
+                    ).then((res)=>{
+                        console.log(res.data)
+                    }).catch((err)=>{
+                        console.log(err);
+                    })
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
 
-            console.log(this.ruleForm.name);
-            this.axios.post('/api/cashflow/user/addUser',
-                params
-            ).then((res)=>{
-                console.log(res.data)
-            }).catch((err)=>{
-                console.log(err);
-            })
+           
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
