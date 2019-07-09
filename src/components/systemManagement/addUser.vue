@@ -1,29 +1,29 @@
 <template>
     <div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-            <el-form-item label="工号">
+            <el-form-item label="工号" prop="username">
                 <el-input v-model="ruleForm.username"></el-input>
             </el-form-item>
             <el-form-item label="中文姓名" prop="name">
                 <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="手机号">
+            <el-form-item label="手机号" prop="phone">
                 <el-input v-model="ruleForm.phone"></el-input>
             </el-form-item>
-            <el-form-item label="所属部门">
+            <el-form-item label="所属部门" prop="affiliation">
                 <el-select v-model="ruleForm.affiliation" placeholder="请选择">
                     <el-option label="所有" value="all"></el-option>
                     <el-option label="比地" value="bidi"></el-option>
                     <el-option label="曦达" value="xida"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="用户状态">
+            <el-form-item label="用户状态" prop="status">
                 <el-select v-model="ruleForm.status" placeholder="请选择">
                     <el-option label="正常" value="normal"></el-option>
                     <el-option label="停用" value="disable"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="用户角色">
+            <el-form-item label="用户角色" prop="userRole">
                 <el-select v-model="ruleForm.userRole" placeholder="请选择">
                     <el-option label="管理员" value="guanli"></el-option>
                     <el-option label="测试" value="ceshi"></el-option>
